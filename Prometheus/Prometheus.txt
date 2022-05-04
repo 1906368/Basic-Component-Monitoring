@@ -1,0 +1,63 @@
+Microsoft Windows [Version 10.0.19044.1620]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\KIIT>cd Downloads
+
+C:\Users\KIIT\Downloads>ssh -i "InstanceKey.pem" ec2-user@ec2-34-211-205-113.us-west-2.compute.amazonaws.com
+The authenticity of host 'ec2-34-211-205-113.us-west-2.compute.amazonaws.com (34.211.205.113)' can't be established.
+ECDSA key fingerprint is SHA256:ObUwukPMmjYEkTF0VvqiReSJJWyRSBDbG095Q2C8IlY.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'ec2-34-211-205-113.us-west-2.compute.amazonaws.com,34.211.205.113' (ECDSA) to the list of known hosts.
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+14 package(s) needed for security, out of 17 available
+Run "sudo yum update" to apply all updates.
+[ec2-user@ip-172-31-10-191 ~]$ cd /opt/
+[ec2-user@ip-172-31-10-191 opt]$ sudo wget https://github.com/prometheus/prometheus/releases/download/v2.35.0-rc0/prometheus-2.35.0-rc0.linux-amd64.tar.gz
+--2022-04-12 08:09:01--  https://github.com/prometheus/prometheus/releases/download/v2.35.0-rc0/prometheus-2.35.0-rc0.linux-amd64.tar.gz
+Resolving github.com (github.com)... 192.30.255.112
+Connecting to github.com (github.com)|192.30.255.112|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+
+Location: https://objects.githubusercontent.com/github-production-release-asset-2e65be/6838921/2f797067-a930-4941-a4d2-be07b541cab4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20220412%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220412T080901Z&X-Amz-Expires=300&X-Amz-Signature=5fe7c46cfada78b8b2748928b7439f0266e5b3b4162caef15404660669b3f3c4&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=6838921&response-content-disposition=attachment%3B%20filename%3Dprometheus-2.35.0-rc0.linux-amd64.tar.gz&response-content-type=application%2Foctet-stream [following]
+--2022-04-12 08:09:01--  https://objects.githubusercontent.com/github-production-release-asset-2e65be/6838921/2f797067-a930-4941-a4d2-be07b541cab4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20220412%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220412T080901Z&X-Amz-Expires=300&X-Amz-Signature=5fe7c46cfada78b8b2748928b7439f0266e5b3b4162caef15404660669b3f3c4&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=6838921&response-content-disposition=attachment%3B%20filename%3Dprometheus-2.35.0-rc0.linux-amd64.tar.gz&response-content-type=application%2Foctet-stream
+Resolving objects.githubusercontent.com (objects.githubusercontent.com)... 185.199.109.133, 185.199.110.133, 185.199.111.133, ...
+Connecting to objects.githubusercontent.com (objects.githubusercontent.com)|185.199.109.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 80636489 (77M) [application/octet-stream]
+Saving to: ‘prometheus-2.35.0-rc0.linux-amd64.tar.gz’
+
+100%[==================================================================================================================================>] 80,636,489  5.79MB/s   in 13s
+
+2022-04-12 08:09:15 (5.79 MB/s) - ‘prometheus-2.35.0-rc0.linux-amd64.tar.gz’ saved [80636489/80636489]
+
+[ec2-user@ip-172-31-10-191 opt]$ sudo tar -xf prometheus-2.35.0-rc0.linux-amd64.tar.gz
+[ec2-user@ip-172-31-10-191 opt]$ sudo mv prometheus-2.35.0-rc0.linux-amd64 prometheus
+[ec2-user@ip-172-31-10-191 opt]$ ls -a
+.  ..  aws  prometheus  prometheus-2.35.0-rc0.linux-amd64.tar.gz  rh
+[ec2-user@ip-172-31-10-191 opt]$ cd prometheus/
+[ec2-user@ip-172-31-10-191 prometheus]$ sudo vim prometheus.yml
+[ec2-user@ip-172-31-10-191 prometheus]$ [ec2-user@ip-172-31-10-191 prometheus]$ sudo ./prometheus
+ts=2022-04-12T08:13:52.222Z caller=main.go:488 level=info msg="No time or size retention was set so using the default time retention" duration=15d
+ts=2022-04-12T08:13:52.222Z caller=main.go:525 level=info msg="Starting Prometheus" version="(version=2.35.0-rc0, branch=HEAD, revision=5b73e518260d8bab36ebb1c0d0a5826eba8fc0a0)"
+ts=2022-04-12T08:13:52.222Z caller=main.go:530 level=info build_context="(go=go1.18, user=root@0b5bef750ef2, date=20220408-13:26:09)"
+ts=2022-04-12T08:13:52.222Z caller=main.go:531 level=info host_details="(Linux 5.10.102-99.473.amzn2.x86_64 #1 SMP Wed Mar 2 19:14:12 UTC 2022 x86_64 ip-172-31-10-191.us-west-2.compute.internal (none))"
+ts=2022-04-12T08:13:52.222Z caller=main.go:532 level=info fd_limits="(soft=65535, hard=65535)"
+ts=2022-04-12T08:13:52.223Z caller=main.go:533 level=info vm_limits="(soft=unlimited, hard=unlimited)"
+ts=2022-04-12T08:13:52.224Z caller=web.go:541 level=info component=web msg="Start listening for connections" address=0.0.0.0:9090
+ts=2022-04-12T08:13:52.224Z caller=main.go:957 level=info msg="Starting TSDB ..."
+ts=2022-04-12T08:13:52.229Z caller=head.go:493 level=info component=tsdb msg="Replaying on-disk memory mappable chunks if any"
+ts=2022-04-12T08:13:52.229Z caller=head.go:536 level=info component=tsdb msg="On-disk memory mappable chunks replay completed" duration=4.425µs
+ts=2022-04-12T08:13:52.229Z caller=head.go:542 level=info component=tsdb msg="Replaying WAL, this may take a while"
+ts=2022-04-12T08:13:52.232Z caller=tls_config.go:195 level=info component=web msg="TLS is disabled." http2=false
+ts=2022-04-12T08:13:52.232Z caller=head.go:613 level=info component=tsdb msg="WAL segment loaded" segment=0 maxSegment=0
+ts=2022-04-12T08:13:52.232Z caller=head.go:619 level=info component=tsdb msg="WAL replay completed" checkpoint_replay_duration=34.269µs wal_replay_duration=3.180494ms total_replay_duration=3.325181ms
+ts=2022-04-12T08:13:52.235Z caller=main.go:978 level=info fs_type=XFS_SUPER_MAGIC
+ts=2022-04-12T08:13:52.235Z caller=main.go:981 level=info msg="TSDB started"
+ts=2022-04-12T08:13:52.235Z caller=main.go:1162 level=info msg="Loading configuration file" filename=prometheus.yml
+ts=2022-04-12T08:13:52.244Z caller=main.go:1199 level=info msg="Completed loading of configuration file" filename=prometheus.yml totalDuration=9.517854ms db_storage=1.537µs remote_storage=2µs web_handler=1.142µs query_engine=1.198µs scrape=9.167899ms scrape_sd=22.249µs notify=24.021µs notify_sd=13.701µs rules=1.855µs tracing=5.688µs
+ts=2022-04-12T08:13:52.244Z caller=main.go:930 level=info msg="Server is ready to receive web requests."

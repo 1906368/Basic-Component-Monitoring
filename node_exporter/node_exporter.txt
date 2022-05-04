@@ -1,0 +1,98 @@
+Microsoft Windows [Version 10.0.19044.1620]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\KIIT>cd Downloads
+
+C:\Users\KIIT\Downloads>ssh -i "InstanceKey.pem" ec2-user@ec2-52-26-192-141.us-west-2.compute.amazonaws.com
+The authenticity of host 'ec2-52-26-192-141.us-west-2.compute.amazonaws.com (52.26.192.141)' can't be established.
+ECDSA key fingerprint is SHA256:PySchXGOAS6dTd96ilToy/BFU90bDOvZd9R7wkXCsAE.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'ec2-52-26-192-141.us-west-2.compute.amazonaws.com,52.26.192.141' (ECDSA) to the list of known hosts.
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+14 package(s) needed for security, out of 17 available
+Run "sudo yum update" to apply all updates.
+[ec2-user@ip-172-31-6-129 ~]$ cd opt/
+-bash: cd: opt/: No such file or directory
+[ec2-user@ip-172-31-6-129 ~]$ cd /opt/
+[ec2-user@ip-172-31-6-129 opt]$ sudo wget https://github.com/prometheus/node_exporter/releases/download/v1.3.1/node_exporter-1.3.1.linux-amd64.tar.gz
+--2022-04-12 08:01:16--  https://github.com/prometheus/node_exporter/releases/download/v1.3.1/node_exporter-1.3.1.linux-amd64.tar.gz
+Resolving github.com (github.com)... 192.30.255.113
+Connecting to github.com (github.com)|192.30.255.113|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+
+Location: https://objects.githubusercontent.com/github-production-release-asset-2e65be/9524057/7c60f6f9-7b41-446c-be81-a6c24a9d0383?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20220412%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220412T080116Z&X-Amz-Expires=300&X-Amz-Signature=97e6798f373c424c95ad8a17521f6959b771871dc6b6b4c346c2cf798c45b3fb&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=9524057&response-content-disposition=attachment%3B%20filename%3Dnode_exporter-1.3.1.linux-amd64.tar.gz&response-content-type=application%2Foctet-stream [following]
+--2022-04-12 08:01:16--  https://objects.githubusercontent.com/github-production-release-asset-2e65be/9524057/7c60f6f9-7b41-446c-be81-a6c24a9d0383?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20220412%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220412T080116Z&X-Amz-Expires=300&X-Amz-Signature=97e6798f373c424c95ad8a17521f6959b771871dc6b6b4c346c2cf798c45b3fb&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=9524057&response-content-disposition=attachment%3B%20filename%3Dnode_exporter-1.3.1.linux-amd64.tar.gz&response-content-type=application%2Foctet-stream
+Resolving objects.githubusercontent.com (objects.githubusercontent.com)... 185.199.111.133, 185.199.108.133, 185.199.109.133, ...
+Connecting to objects.githubusercontent.com (objects.githubusercontent.com)|185.199.111.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 9033415 (8.6M) [application/octet-stream]
+Saving to: ‘node_exporter-1.3.1.linux-amd64.tar.gz’
+
+100%[==================================================================================================================================>] 9,033,415   --.-K/s   in 0.1s
+
+2022-04-12 08:01:16 (57.5 MB/s) - ‘node_exporter-1.3.1.linux-amd64.tar.gz’ saved [9033415/9033415]
+
+[ec2-user@ip-172-31-6-129 opt]$ sudo tar -xf node_exporter-1.3.1.linux-amd64.tar.gz
+[ec2-user@ip-172-31-6-129 opt]$ sudo mv node_exporter-1.3.1.linux-amd64 node-exporter
+[ec2-user@ip-172-31-6-129 opt]$ ls -a
+.  ..  aws  node-exporter  node_exporter-1.3.1.linux-amd64.tar.gz  rh
+[ec2-user@ip-172-31-6-129 opt]$ cd node-exporter/
+[ec2-user@ip-172-31-6-129 node-exporter]$ sudo ./node_exporter
+ts=2022-04-12T08:04:02.346Z caller=node_exporter.go:182 level=info msg="Starting node_exporter" version="(version=1.3.1, branch=HEAD, revision=a2321e7b940ddcff26873612bccdf7cd4c42b6b6)"
+ts=2022-04-12T08:04:02.346Z caller=node_exporter.go:183 level=info msg="Build context" build_context="(go=go1.17.3, user=root@243aafa5525c, date=20211205-11:09:49)"
+ts=2022-04-12T08:04:02.346Z caller=node_exporter.go:185 level=warn msg="Node Exporter is running as root user. This exporter is designed to run as unpriviledged user, root is not required."
+ts=2022-04-12T08:04:02.347Z caller=filesystem_common.go:111 level=info collector=filesystem msg="Parsed flag --collector.filesystem.mount-points-exclude" flag=^/(dev|proc|run/credentials/.+|sys|var/lib/docker/.+)($|/)
+ts=2022-04-12T08:04:02.347Z caller=filesystem_common.go:113 level=info collector=filesystem msg="Parsed flag --collector.filesystem.fs-types-exclude" flag=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$
+ts=2022-04-12T08:04:02.348Z caller=node_exporter.go:108 level=info msg="Enabled collectors"
+
+ts=2022-04-12T08:04:02.348Z caller=node_exporter.go:115 level=info collector=arp
+ts=2022-04-12T08:04:02.348Z caller=node_exporter.go:115 level=info collector=bcache
+ts=2022-04-12T08:04:02.348Z caller=node_exporter.go:115 level=info collector=bonding
+ts=2022-04-12T08:04:02.348Z caller=node_exporter.go:115 level=info collector=btrfs
+ts=2022-04-12T08:04:02.348Z caller=node_exporter.go:115 level=info collector=conntrack
+ts=2022-04-12T08:04:02.348Z caller=node_exporter.go:115 level=info collector=cpu
+ts=2022-04-12T08:04:02.348Z caller=node_exporter.go:115 level=info collector=cpufreq
+ts=2022-04-12T08:04:02.348Z caller=node_exporter.go:115 level=info collector=diskstats
+ts=2022-04-12T08:04:02.348Z caller=node_exporter.go:115 level=info collector=dmi
+ts=2022-04-12T08:04:02.348Z caller=node_exporter.go:115 level=info collector=edac
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=entropy
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=fibrechannel
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=filefd
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=filesystem
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=hwmon
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=infiniband
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=ipvs
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=loadavg
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=mdadm
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=meminfo
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=netclass
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=netdev
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=netstat
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=nfs
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=nfsd
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=nvme
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=os
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=powersupplyclass
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=pressure
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=rapl
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=schedstat
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=sockstat
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=softnet
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=stat
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=tapestats
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=textfile
+ts=2022-04-12T08:04:02.349Z caller=node_exporter.go:115 level=info collector=thermal_zone
+ts=2022-04-12T08:04:02.350Z caller=node_exporter.go:115 level=info collector=time
+ts=2022-04-12T08:04:02.350Z caller=node_exporter.go:115 level=info collector=timex
+ts=2022-04-12T08:04:02.350Z caller=node_exporter.go:115 level=info collector=udp_queues
+ts=2022-04-12T08:04:02.350Z caller=node_exporter.go:115 level=info collector=uname
+ts=2022-04-12T08:04:02.350Z caller=node_exporter.go:115 level=info collector=vmstat
+ts=2022-04-12T08:04:02.350Z caller=node_exporter.go:115 level=info collector=xfs
+ts=2022-04-12T08:04:02.350Z caller=node_exporter.go:115 level=info collector=zfs
+ts=2022-04-12T08:04:02.350Z caller=node_exporter.go:199 level=info msg="Listening on" address=:9100
+ts=2022-04-12T08:04:02.350Z caller=tls_config.go:195 level=info msg="TLS is disabled." http2=false
